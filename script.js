@@ -83,3 +83,44 @@ profileImgs.forEach(img => {
         img.style.boxShadow = '0 20px 50px rgba(0, 0, 0, 0.3)';
     });
 });
+
+// Contact form handling
+const contactForm = document.querySelector('.contact-form form');
+const formStatus = document.getElementById('form-status');
+
+contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    formStatus.textContent = '';
+    formStatus.style.color = '';
+
+    const formData = new FormData(contactForm);
+
+    try {
+        const response = await fetch(contactForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            formStatus.textContent = 'Message sent successfully!';
+            formStatus.style.color = 'green';
+            contactForm.reset();
+        } else {
+            throw new Error('Failed to send message');
+        }
+    } catch (error) {
+        formStatus.textContent = 'Failed to send message. Please try again.';
+        formStatus.style.color = 'red';
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+    }
+});

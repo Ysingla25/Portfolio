@@ -488,6 +488,13 @@ section {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
+#form-status {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
 .form-group {
   margin-bottom: 25px;
 }
